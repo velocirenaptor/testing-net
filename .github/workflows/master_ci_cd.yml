@@ -24,13 +24,13 @@ jobs:
         run: |
           npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
   
-      - name: Build Angular, output in dist/mycv
+      - name: Build Angular, output in coverage/unit-tests
         run: |
           CI=false npm run build
           
       - name: Show directory
         run: |
-          ls -la dist/mycv/browser
+          ls -la coverage/unit-tests
 
       - name: Download and run httpd image, container name serving_base
         run: |
@@ -42,7 +42,7 @@ jobs:
           
       - name: Copy Angular build to container
         run: |
-          docker cp dist/mycv/browser/. serving_base:/usr/local/apache2/htdocs
+          docker cp coverage/unit-tests/. serving_base:/usr/local/apache2/htdocs
 
       - name: List container files
         run: |
