@@ -1,14 +1,8 @@
 import { greet } from './greet';
 
-describe('greet test suite', () =>{
-    it('Should return 0 if input is negative', () =>{
-            const result = greet(-1);
-        expect(result).toBe(0);
+describe('greet', () => {
+    it('should include the name in the message', () => {
+        expect(greet('mosh')).toContain('mosh');
     })
-
-    it('Should increment if input is positive', () =>{
-        const result = greet(1);
-    expect(result).toBe(2);
-})
-})
+});
 
