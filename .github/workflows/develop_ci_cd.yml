@@ -27,7 +27,7 @@ jobs:
           
       - name: show dir
         run: |
-          ls -la dist/mycv/browser
+          ls -la src/app
 
       - name: download, run httpd image, container name serving_base
         run: |
@@ -39,7 +39,7 @@ jobs:
           
       - name: cp angular build to container
         run: |
-          docker cp dist/mycv/browser/.  serving_base:/usr/local/apache2/htdocs
+          docker cp src/app/.  serving_base:/usr/local/apache2/htdocs
 
       - name: list container
         run: |
