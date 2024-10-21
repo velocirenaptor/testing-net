@@ -27,7 +27,7 @@ jobs:
           
       - name: Show directory contents
         run: |
-          ls -la dist/mycv/browser
+          ls -la src/app
 
       - name: Run HTTPD Docker container
         run: |
@@ -39,7 +39,7 @@ jobs:
           
       - name: Copy Angular build to container
         run: |
-          docker cp dist/mycv/browser/. serving_base:/usr/local/apache2/htdocs
+          docker cp src/app/. serving_base:/usr/local/apache2/htdocs
 
       - name: List files in container
         run: |
