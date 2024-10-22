@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { sumX, sumXX, sumY, sumXY } from "../gen/calculate";
+import { sumX, sumXX, sumY, sumXY } from "../common/calculate";
 import data_set1 from "../data/set1.json";
 
 @Component({
