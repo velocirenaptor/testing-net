@@ -11,7 +11,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/z",
           "options": {
             "outputPath": "dist/unit-tests",
             "index": "src/index.html",
