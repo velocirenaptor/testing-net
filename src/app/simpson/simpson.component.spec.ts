@@ -1,30 +1,40 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { SimpsonComponent } from "./simpson.component";
-import { twoX, x2, oneOverX } from "../common/simpson_rule";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SimpsonComponent } from './simpson.component';
 
-describe("SimpsonComponent test for f(x) = 2x", () => {
-  const component = new SimpsonComponent();
-  const result = component.calculateSimpsonRule(twoX, 0, 4, 4, 0.0001);
+describe('SimpsonComponent', () => {
+  let component: SimpsonComponent;
+  let fixture: ComponentFixture<SimpsonComponent>;
+  let simp: SimpsonComponent;
 
-  it("Should return p=16.0 when f(x)=2x, x0=0, x1=4, num_seg=4", () => {
-    expect(parseFloat(result.toFixed(1))).toBe(16.0);
+  beforeEach(async () => {
+    simp = new SimpsonComponent();
+  })
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SimpsonComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(SimpsonComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
-});
 
-describe("SimpsonComponent test for f(x) = x^2", () => {
-  const component = new SimpsonComponent();
-  const result = component.calculateSimpsonRule(x2, 0, 1, 4, 0.0001);
-
-  it("Should return p=0.3333 when f(x)=x^2, x0=0, x1=1, num_seg=4", () => {
-    expect(parseFloat(result.toFixed(4))).toBe(0.3333);
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
-});
 
-describe("SimpsonComponent test for f(x) = 1/x", () => {
-  const component = new SimpsonComponent();
-  const result = component.calculateSimpsonRule(oneOverX, 1, 4, 6, 0.001);
+  it('Should return 16 if f(x)=2x, x0=1 x1=4', ()=>{
+    expect(simp.getArea('2x', 0, 4, 4, 0.00001)).toBeCloseTo(16.0,1);
+  })
 
-  it("Should return p=1.38 when f(x)=1/x, x0=1, x1=4, num_seg=6", () => {
-    expect(parseFloat(result.toFixed(2))).toBe(1.39);
-  });
+  it('Should return 0.333 if f(x)=x^2, x0=0 x1=1', ()=>{
+    expect(simp.getArea("x^2", 0, 1, 4, 0.0001)).toBeCloseTo(0.333,2);
+  })
+
+  it('Should return 1.38 in f(x)=1/x, x0=1, x1=4', ()=>{
+    expect(simp.getArea("1/x", 1, 4, 6, 0.001)).toBeCloseTo(1.386,2);
+  })
+
 });

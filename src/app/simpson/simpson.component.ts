@@ -1,22 +1,22 @@
-import { Component } from "@angular/core";
-import { simpson, twoX, x2, oneOverX } from "../common/simpson_rule";
+import { Component } from '@angular/core';
+import { Simpson } from '../common/simpson_rule';
 
 @Component({
-  selector: "app-simpson",
+  selector: 'app-simpson',
   standalone: true,
   imports: [],
-  templateUrl: "./simpson.component.html",
-  styleUrls: ["./simpson.component.css"],
+  templateUrl: './simpson.component.html',
+  styleUrl: './simpson.component.css'
 })
 export class SimpsonComponent {
-  calculateSimpsonRule(
-    f: (x: number) => number,
-    x0: number,
-    x1: number,
-    num_seg: number,
-    error: number
-  ) {
-    const result = simpson(x0, x1, num_seg, f);
-    return result;
+
+  simp: Simpson;
+
+  constructor(){
+    this.simp = new Simpson();
+  }
+
+  getArea(fx: any, x0: number, x1: number, seg: number, error: number) {
+    return this.simp.area(fx, x0, x1, seg, error);
   }
 }
