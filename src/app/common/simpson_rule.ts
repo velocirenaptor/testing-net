@@ -1,32 +1,89 @@
-import { evaluate } from 'mathjs';
+export function simpsonRuleIntegracion(f: (x: number) => number, x0: number, x1: number, numSeg: number, error: number): number {
+  let num_seg = numSeg; 
+  let resultado = integralSimpson(f, x0, x1, num_seg); 
+  let newResultado;
 
-export class Simpson {
-  calcularOperacion(operacion: string, x: number) {
-    const scope = { x: x, X: x };
-    const resultado = evaluate(operacion, scope);
-    return resultado;
+  do {
+      num_seg *= 2;
+      newResultado = integralSimpson(f, x0, x1, num_seg);
+      if (Math.abs(newResultado - resultado) < error) break; 
+      resultado = newResultado; 
+  } while (true);
+
+  return newResultado;
+}
+
+function integralSimpson(f: (x: number) => number, x0: number, x1: number, numSeg: number): number {
+  const w = (x1 - x0) / numSeg; 
+  let suma = f(x0) + f(x1); 
+
+  //regla Simpson
+  for (let i = 1; i < numSeg; i++) {
+      const xi = x0 + i * w;
+      suma += (i % 2 === 0 ? 2 : 4) * f(xi); 
   }
 
-  area(fx: any, x0: number, x1: number, seg: number, error: number) {
-    let a1 = 0,
-      a2 = 0,
-      c = 1;
-    while (a2 === 0 || Math.abs(a2 - a1) > error) {
-      a1 = a2 || this.simpson(seg, fx, x0, x1);
-      seg *= 2
-      a2 = this.simpson(seg, fx, x0, x1);
-      c++;
-    }
-    return parseFloat(a2.toFixed(3));
+  return (w / 3) * suma;
+}
+
+//gaam
+function gammaFunction(n: number): number {
+  const g = 7;
+  const coeficiente = [
+      0.99999999999980993, 676.5203681218851, 
+      -1259.1392167224028, 771.32342877765313, 
+      -176.61502916214059, 12.507343278686905, 
+      -0.13857109526572012, 9.9843695780195716e-6, 
+      1.5056327351493116e-7
+  ];
+
+  if (n < 0.5) {
+      return Math.PI / (Math.sin(Math.PI * n) * gammaFunction(1 - n));
   }
 
-  simpson(segmentos: number, fx: any, x0: number, x1: number) {
-    const w = (x1 - x0) / segmentos;
-    let suma = this.calcularOperacion(fx, x0) + this.calcularOperacion(fx, x1);
-    for (let i = 1; i < segmentos; i++) {
-      const multiplo = i % 2 === 0 ? 2 : 4;
-      suma += multiplo * this.calcularOperacion(fx, w * i + x0);
-    }
-    return parseFloat(((w / 3) * suma).toFixed(3));
+  n -= 1;
+  let x = coeficiente[0];
+  for (let i = 1; i < g + 2; i++) {
+      x += coeficiente[i] / (n + i);
   }
+
+  const t = n + g + 0.5;
+  return Math.sqrt(2 * Math.PI) * Math.pow(t, n + 0.5) * Math.exp(-t) * x;
+}
+
+
+export function tDistribucion(x: number, dof: number): number {
+  if (dof <= 0) return 0; // Asegurarse que los grados de libertad sean válidos
+
+  const gammaNumerator = gammaFunction((dof + 1) / 2);
+  const gammaDenominator = Math.sqrt(dof * Math.PI) * gammaFunction(dof / 2);
+  const multiplier = Math.pow(1 + (x * x) / dof, -(dof + 1) / 2);
+
+  return (gammaNumerator / gammaDenominator) * multiplier;
+}
+
+
+export function linearFunction(x: number): number {
+  return 2 * x;
+}
+
+export function quadraticFunction(x: number): number {
+  return x * x;
+}
+
+export function inverseFunction(x: number): number {
+  return 1 / x;
+}
+
+// Distribución t para grados de libertad específicos
+export function tDist9(x: number): number {
+  return tDistribucion(x, 9);
+}
+
+export function tDist10(x: number): number {
+  return tDistribucion(x, 10);
+}
+
+export function tDist30(x: number): number {
+  return tDistribucion(x, 30);
 }
