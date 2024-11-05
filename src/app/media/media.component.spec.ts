@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { MediaComponent } from './media.component';
 
 describe('MediaComponent', () => {
@@ -8,10 +8,12 @@ describe('MediaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MediaComponent]
+      imports: [ MediaComponent, FormsModule ] // Add MediaComponent and FormsModule here
     })
     .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(MediaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

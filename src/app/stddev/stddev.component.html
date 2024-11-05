@@ -1,1 +1,29 @@
-<p>stddev works!</p>
+<body>
+    <section class="flex flex-col justify-center items-center p-15">
+        <table>
+            <thead>
+                <tr>
+                    <th>Column 1</th>
+                    <th>Column 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let valor of column1; let i = index">
+                    <td>{{ valor }}</td>
+                    <td>{{ column2[i] || "N/A" }}</td>
+                </tr>
+                <tr>
+                    <td>Column1 media: {{ mediaColumn1 }}</td>
+                    <td>Column2 media: {{ mediaColumn2 }}</td>
+                </tr>
+                <tr>
+                    <td>Column1 stddev: {{ stddevColumn1 }}</td>
+                    <td>Column2 stddev: {{ stddevColumn2 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+
+

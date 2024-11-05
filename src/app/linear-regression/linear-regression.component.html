@@ -1,1 +1,22 @@
-<p>linear-regression works!</p>
+<body>
+    <div>
+        <h2>Linear Regression Calculator</h2>
+        
+        <label for="xValues">Enter X values (comma-separated):</label>
+        <input id="xValues" [(ngModel)]="xInput" placeholder="e.g., 1,2,3,4" />
+      
+        <label for="yValues">Enter Y values (comma-separated):</label>
+        <input id="yValues" [(ngModel)]="yInput" placeholder="e.g., 2,4,6,8" />
+      
+        <!-- Button to calculate regression -->
+        <button (click)="calculateRegression()">Calculate</button>
+      
+        <div *ngIf="B0 !== null && B1 !== null">
+            <p>B0 (Intercept): {{ B0 }}</p>
+            <p>B1 (Slope): {{ B1 }}</p>
+            <p *ngIf="true">Check B0: {{ B0 }}</p> <!-- Debugging line -->
+          </div>    
+</body>
+
+
+  

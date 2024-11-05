@@ -1,4 +1,4 @@
-import { calculateMean } from './media';
+import { calculateMean } from '../common/media';
 
 describe('calculateMean', () => {
     it(' should return media = 550.6 if input is [160, 591, 114, 229, 230, 270, 128, 1657, 624, 1503]', () => {

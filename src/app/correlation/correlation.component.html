@@ -1,1 +1,30 @@
-<p>correlation works!</p>
+<div>
+    <h2>Correlation Calculator</h2>
+    <form (ngSubmit)="onSubmit($event)" #correlationForm="ngForm">
+      <label for="xValues">Enter X values (comma separated):</label>
+      <input
+        id="xValues"
+        name="xValues"
+        [(ngModel)]="xInput"
+        required
+      />
+  
+      <label for="yValues">Enter Y values (comma separated):</label>
+      <input
+        id="yValues"
+        name="yValues"
+        [(ngModel)]="yInput"
+        required
+      />
+  
+      <button type="submit" [disabled]="!correlationForm.form.valid">
+        Calculate Correlation
+      </button>
+    </form>
+  
+    <div *ngIf="result">
+      <p>Correlation Coefficient (r): {{ result.r }}</p>
+      <p>Coefficient of Determination (r²): {{ result.rr }}</p>
+    </div>
+  </div>
+  

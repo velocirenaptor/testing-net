@@ -1,12 +1,16 @@
 import { Component } from "@angular/core";
 import { sumX, sumXX, sumY, sumXY } from "../common/calculate";
-import data_set1 from "../data/set1.json";
 
 @Component({
   selector: "app-linear-regression",
   templateUrl: "./linear-regression.component.html",
 })
 export class LinearRegresionComponent {
+  xInput: string = "";
+  yInput: string = "";
+  B0: number | null = null;
+  B1: number | null = null;
+
   calcularlinearRegression(
     x: number[],
     y: number[],
@@ -25,7 +29,17 @@ export class LinearRegresionComponent {
 
     return { B0, B1 };
   }
-  predict(B0: number, B1: number, x: number) {
-    return B0 + B1 * x;
+
+  calculateRegression() {
+    const x = this.xInput.split(',').map(Number);
+    const y = this.yInput.split(',').map(Number);
+
+    if (x.length === y.length && x.length > 1) {
+      const result = this.calcularlinearRegression(x, y);
+      this.B0 = result.B0;
+      this.B1 = result.B1;
+    } else {
+      alert("Please enter an equal number of X and Y values.");
+    }
   }
 }
