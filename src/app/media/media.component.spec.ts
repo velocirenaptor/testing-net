@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MediaComponent } from './media.component';
+import { CommonModule } from '@angular/common';
+
 
 describe('MediaComponent', () => {
   let component: MediaComponent;

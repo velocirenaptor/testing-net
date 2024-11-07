@@ -1,44 +1,42 @@
 import { Component } from '@angular/core';
-import { simpsonRuleIntegracion, linearFunction, quadraticFunction, tDistribucion, inverseFunction, tDist9, tDist10, tDist30 } from '../common/simpson_rule';
+import { SimpsonRule } from '../common/simpson_rule';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-simpson',
+  selector: "app-simpson",
   standalone: true,
-  imports: [],
-  templateUrl: './simpson.component.html',
-  styleUrl: './simpson.component.css'
+  imports: [CommonModule, FormsModule],
+  templateUrl: "./simpson.component.html",
 })
 export class SimpsonComponent {
-  calculateSimpson(f: (x: number) => number, x0: number, x1: number, numSeg: number, error: number): number {
-    return simpsonRuleIntegracion(f, x0, x1, numSeg, error);
+  x0: number = 0;
+  x1: number = 0;
+  numSeg: number = 0;
+  error: number = 0;
+  result: number | null = null;
+
+  result1: number = 0;
+  result2: number = 0;
+  result3: number = 0;
+
+  constructor() {
+    this.calculateResults();
   }
 
-  getLinearFunction(x: number): number {
-    return linearFunction(x);
+  calculateResults(): void {
+    this.result1 = SimpsonRule.simpson(0, 4, 4, 0.0001, SimpsonRule.fx_2x);
+    this.result2 = SimpsonRule.simpson(0, 1, 4, 0.0001, SimpsonRule.fx_x2);
+    this.result3 = SimpsonRule.simpson(1, 4, 6, 0.001, SimpsonRule.fx_1_x);
   }
 
-  getQuadraticFunction(x: number): number {
-    return quadraticFunction(x);
+  simpson() {
+    this.result = SimpsonRule.simpson(
+      this.x0,
+      this.x1,
+      this.numSeg,
+      this.error,
+      SimpsonRule.fx_2x,
+    );
   }
-
-  getInverseFunction(x: number): number {
-    return inverseFunction(x);
-  }
-
-  getTDistribucion(x: number, dof: number): number {
-    return tDistribucion(x, dof);
-  }
-
-  getTDist9(x: number): number {
-    return tDist9(x);
-  }
-
-  getTDist10(x: number): number {
-    return tDist10(x);
-  }
-
-  getTDist30(x: number): number {
-    return tDist30(x);
-  }
-   
 }

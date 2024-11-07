@@ -1,35 +1,39 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing'; // Required for routing in tests
 import { AppComponent } from './app.component';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-describe('AppComponent', () => {
+describe("AppComponent", () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,  // Add RouterTestingModule to imports
+        AppComponent,         // Add AppComponent to imports (not declarations)
       ],
-      declarations: [
-        AppComponent
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: { data: {} }, 
+            params: of({}), 
+            queryParams: of({}),
+          },
+        },
       ],
     }).compileComponents();
   });
 
-  xit('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  xit(`should have as title 'openai'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('openai');
-  });
-
-  xit('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('openai app is running!');
+  });
+
+  it("should create the app", () => {
+    expect(component).toBeTruthy();
   });
 });

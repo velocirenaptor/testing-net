@@ -1,1 +1,31 @@
-<p>simpson works!</p>
+<header>
+  <h2>Simpson's Rule</h2>
+</header>
+
+<section class="inputClass">
+  <div class="input-container">
+    <table class="input-table">
+      <tr>
+        <td><label for="x0">(x0):</label></td>
+        <td><input type="text" name="x0" id="x0" placeholder="(x0) value" [(ngModel)]="x0" /></td>
+      </tr>
+      <tr>
+        <td><label for="x1">(x1):</label></td>
+        <td><input type="text" name="x1" id="x1" placeholder="(x1) value" [(ngModel)]="x1" /></td>
+      </tr>
+      <tr>
+        <td><label for="numSeg">Segments:</label></td>
+        <td><input type="text" name="numSeg" id="numSeg" placeholder="Segments number" [(ngModel)]="numSeg" /></td>
+      </tr>
+      <tr>
+        <td><label for="error">Tolerated error:</label></td>
+        <td><input type="text" name="error" id="error" placeholder="value" [(ngModel)]="error" /></td>
+      </tr>
+    </table>
+    <button class="calculate-button" (click)="simpson()">Calculate</button>
+  </div>
+  <div *ngIf="result" class="mt-4">
+    <h2 class="text-lg font-bold">Results:</h2>
+    <div class="result" *ngIf="result !== null">{{ result }}</div>
+  </div>
+</section>

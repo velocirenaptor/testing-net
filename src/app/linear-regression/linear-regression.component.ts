@@ -1,20 +1,24 @@
 import { Component } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { sumX, sumXX, sumY, sumXY } from "../common/calculate";
+import { linearRegression } from "../common/linear-regression";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-linear-regression",
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: "./linear-regression.component.html",
 })
 export class LinearRegresionComponent {
-  xInput: string = "";
-  yInput: string = "";
-  B0: number | null = null;
-  B1: number | null = null;
+  xValues: string = "";
+  yValues: string = "";
+  result: { slope: number; intercept: number } = { slope: 0, intercept: 0 };
 
   calcularlinearRegression(
     x: number[],
     y: number[],
-  ): { B0: number; B1: number } {
+  ): { slope: number; intercept: number } {
     const n = x.length;
     const xSum = sumX(x);
     const ySum = sumY(y);
@@ -24,22 +28,26 @@ export class LinearRegresionComponent {
     const xMean = xSum / n;
     const yMean = ySum / n;
 
-    const B1 = (xySum - n * xMean * yMean) / (xSquareSum - n * xMean ** 2);
-    const B0 = yMean - B1 * xMean;
+    const slope = (xySum - n * xMean * yMean) / (xSquareSum - n * xMean ** 2);
+    const intercept = yMean - slope * xMean;
 
-    return { B0, B1 };
+    return { slope, intercept };
   }
 
-  calculateRegression() {
-    const x = this.xInput.split(',').map(Number);
-    const y = this.yInput.split(',').map(Number);
+  predict(slope: number, intercept: number, x: number) {
+    return intercept + slope * x; 
+  }
 
-    if (x.length === y.length && x.length > 1) {
-      const result = this.calcularlinearRegression(x, y);
-      this.B0 = result.B0;
-      this.B1 = result.B1;
-    } else {
-      alert("Please enter an equal number of X and Y values.");
+  linearRegression() {
+    const xArr = this.xValues.split(',').map(val => parseFloat(val.trim()));
+    const yArr = this.yValues.split(',').map(val => parseFloat(val.trim()));
+
+    if (xArr.length !== yArr.length) {
+      alert('The number of x values must match the number of y values.');
+      return;
     }
+
+    this.result = this.calcularlinearRegression(xArr, yArr);
+    console.log(this.result);
   }
 }

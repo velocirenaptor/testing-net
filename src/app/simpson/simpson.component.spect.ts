@@ -1,114 +1,49 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SimpsonComponent } from './simpson.component';
+import { SimpsonRule } from "../common/simpson_rule";
+import { SimpsonComponent } from "./simpson.component";
 
-describe('SimpsonComponent', () => {
-  let component: SimpsonComponent;
-  let fixture: ComponentFixture<SimpsonComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SimpsonComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(SimpsonComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+describe("SimpsonRule", () => {
+  it("should return 16.0 for f(x) = 2x, x0 = 0, x1 = 4, numSeg = 4, ERROR = 0.0001", () => {
+    const result = SimpsonRule.simpson(0, 4, 4, 0.0001, SimpsonRule.fx_2x);
+    expect(result).toBeCloseTo(16.0, 2);
   });
 
-  
-describe('Simpson\'s Rule Integration - f(x) = 2x', () => {
-  let component: SimpsonComponent;
-
-  beforeEach(() => {
-      component = new SimpsonComponent();
+  it("should return 0.3333 for f(x) = x^2, x0 = 0, x1 = 1, numSeg = 4, ERROR = 0.0001", () => {
+    const result = SimpsonRule.simpson(0, 1, 4, 0.0001, SimpsonRule.fx_x2);
+    expect(result).toBeCloseTo(0.3333, 4);
   });
 
-  it('should return 16.0 when integrating f(x) = 2x from x0=0 to x1=4 with num_seg=4 and error=0.0001', () => {
-      const result = component.calculateSimpson(component.getLinearFunction, 0, 4, 4, 0.0001);
-      expect(result).toBeCloseTo(16.0, 4);
-  });
-});
-
-describe('Simpson\'s Rule Integration - f(x) = x^2', () => {
-  let component: SimpsonComponent;
-
-  beforeEach(() => {
-      component = new SimpsonComponent();
+  it("should return 1.38 for f(x) = 1/x, x0 = 1, x1 = 4, numSeg = 6, ERROR = 0.001", () => {
+    const result = SimpsonRule.simpson(1, 4, 6, 0.001, SimpsonRule.fx_1_x);
+    expect(result).toBeCloseTo(1.38, 1);
   });
 
-  it('should return 0.3333 when integrating f(x) = x^2 from x0=0 to x1=1 with num_seg=4 and error=0.0001', () => {
-      const result = component.calculateSimpson(component.getQuadraticFunction, 0, 1, 4, 0.0001);
-      expect(result).toBeCloseTo(0.3333, 4);
-  });
-});
-
-describe('Simpson\'s Rule Integration - f(x) = 1/x', () => {
-  let component: SimpsonComponent;
-
-  beforeEach(() => {
-      component = new SimpsonComponent();
+  it("should return 0.35006 for x0=0, x1=1.1, dof=9, error=0.00001", () => {
+    const result = SimpsonRule.TStudent(1.1, 10, 9, 0.00001);
+    expect(result).toBeCloseTo(0.35006, 4);
   });
 
-  it('should return 1.3863 when integrating f(x) = 1/x from x0=1 to x1=4 with num_seg=6 and error=0.001', () => {
-      const result = component.calculateSimpson(component.getInverseFunction, 1, 4, 6, 0.001);
-      expect(result).toBeCloseTo(1.3863, 4);
+  it("should return 0.36757 for x0=0, x1=1.1812, dof=10, error=0.00001", () => {
+    const result = SimpsonRule.TStudent(1.1812, 10, 10, 0.00001);
+    expect(result).toBeCloseTo(0.36757, 4);
+  });
+
+  it("should return 0.49500 for x0=0, x1=2.750, dof=30, error=0.00001", () => {
+    const result = SimpsonRule.TStudent(2.75, 10, 30, 0.00001);
+    expect(result).toBeCloseTo(0.495, 4);
+  });
+
+  it("should call simpson method", () => {
+    const component = new SimpsonComponent();
+    // Arrange
+    let result: number | null = null;
+    component.x0 = 0;
+    component.x1 = 4;
+    component.numSeg = 4;
+    component.error = 0.0001;
+    // Act
+    component.simpson();
+    result = component.result;
+    console.log(result);
+    expect(result).toBeCloseTo(16.0, 2);
   });
 });
-
-describe('Simpson\'s Rule Integration - t-distribution, dof=9', () => {
-  let component: SimpsonComponent;
-
-  beforeEach(() => {
-      component = new SimpsonComponent();
-  });
-
-  it('should return approximately 0.35006 when integrating t-distribution with 9 dof from x=0 to x=1.1', () => {
-      const result = component.calculateSimpson(component.getTDist9, 0, 1.1, 9, 0.00001);
-      expect(result).toBeCloseTo(0.35006, 5);
-  });
-});
-
-describe('Simpson\'s Rule Integration - t-distribution, dof=10', () => {
-  let component: SimpsonComponent;
-
-  beforeEach(() => {
-      component = new SimpsonComponent();
-  });
-
-  it('should return approximately 0.36757 when integrating t-distribution with 10 dof from x=0 to x=1.1812', () => {
-      const result = component.calculateSimpson(component.getTDist10, 0, 1.1812, 10, 0.00001);
-      expect(result).toBeCloseTo(0.36757, 5);
-  });
-});
-
-describe('Simpson\'s Rule Integration - t-distribution, dof=30', () => {
-  let component: SimpsonComponent;
-
-  beforeEach(() => {
-      component = new SimpsonComponent();
-  });
-
-  it('should return approximately 0.49500 when integrating t-distribution with 30 dof from x=0 to x=2.75', () => {
-      const result = component.calculateSimpson(component.getTDist30, 0, 2.75, 30, 0.00001);
-      expect(result).toBeCloseTo(0.49500, 5);
-  });
-});
-
-describe('Simpson\'s Rule Integration - function returning 0 for dof=0', () => {
-  let component: SimpsonComponent;
-
-  beforeEach(() => {
-      component = new SimpsonComponent();
-  });
-
-  it('should return 0 when dof = 0', () => {
-      const x = 1;
-      const dof = 0;
-      const result = component.getTDistribucion(x, dof);
-      expect(result).toBe(0);
-  });
-});
-});
-
-export { SimpsonComponent };

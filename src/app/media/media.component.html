@@ -1,11 +1,22 @@
-<h2>
-    Media Function
-</h2>
+<div class="media-calculator">
+  <h2>Media Calculator</h2>
+  
+  <div class="inputClass">
+    <label for="numbersInput">Enter numbers:</label>
 
-<div>
-<p>Enter numbers separated by commas: </p>
-<input type="text" [(ngModel)]="numbersInput" placeholder="1, 2, 3, 4..."/>
-<button (click)="calculateMean()">Calculate</button>
+    <input
+    id="numbersInput"
+    type="text"
+    [(ngModel)]="numbersInput"
+    placeholder="e.g., 1, 2, 3, 4, 5" />
+    <button (click)="calculateMean()">Calculate</button>
+</div>
+ 
 
-<p *ngIf="result !== null">Media = {{result}} </p>
+
+
+  <div *ngIf="result !== null" class="result">
+    <h2 class="text-lg font-bold">Results:</h2>
+    <p>Mean equals: {{ result }}</p>
+  </div>
 </div>

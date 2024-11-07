@@ -12,24 +12,27 @@ describe("StddevComponent", () => {
 
     fixture = TestBed.createComponent(StddevComponent);
     component = fixture.componentInstance;
+
+    // Setting column data
     component.column1 = [160, 591, 114, 229, 230, 270, 128, 1657, 624, 1503];
     component.column2 = [
       15.0, 69.9, 6.5, 22.4, 28.4, 65.9, 19.4, 198.7, 38.8, 138.2,
     ];
 
-    component.ngOnInit();
+    component.ngOnInit();  // Make sure this triggers calculation
+    fixture.detectChanges();  // Ensure changes are detected
   });
+
   it("should return stddev = 572.03 if input is [160, 591, 114, 229, 230, 270, 128, 1657, 624, 1503] ", () => {
     const expectedStddevColumn1 = 572.03;
-
-    expect(component.stddevColumn1).toBe(expectedStddevColumn1);
+    expect(component.stddevColumn1).toBeCloseTo(expectedStddevColumn1, 2);  // Allow for floating-point precision
   });
 
   it("should return stddev = 62.26 if input is [15.0, 69.9, 6.5, 22.4, 28.4, 65.9, 19.4, 198.7, 38.8, 138.2] ", () => {
     const expectedStddevColumn2 = 62.26;
-
-    expect(component.stddevColumn2).toBe(expectedStddevColumn2);
+    expect(component.stddevColumn2).toBeCloseTo(expectedStddevColumn2, 2);  // Allow for floating-point precision
   });
+
   it("should create", () => {
     expect(component).toBeTruthy();
   });

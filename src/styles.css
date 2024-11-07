@@ -1,1 +1,148 @@
-/* You can add global styles to this file, and also import other style files */
+
+body{
+    background-color: rgb(206, 145, 32);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    align-items: center;
+    justify-content: center;
+}
+.encabezadoNya h1{
+    font-size: 45px;
+    font-weight: normal;
+    font-family: "flavors";
+    background-color: #af0a3c;
+    background-clip: text;
+    color: transparent;
+    animation: bounce 1s ease infinite;
+    text-align: center;
+}
+
+  
+@keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+h2{
+    text-align: center;
+    font-weight: bold;
+}
+
+.menu-container{
+    text-align: center;
+    font-weight: normal;
+    }
+
+    .menu {
+        text-align: center;
+        margin-top: 20px;
+      }
+      
+      .menu-ul {
+        list-style-type: none;
+        padding: 0;
+        display: inline-flex;
+      }
+      
+      .menu-ul li {
+        margin: 0 5px;
+      }
+      
+      .menu-button {
+        display: inline-block;
+        padding: 10px 15px;
+        color: white;
+        background-color: #4CAF50;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      
+      .menu-button:hover {
+        background-color: #45a049;
+      }
+      
+      .menu-button:active {
+        background-color: #39843b;
+      }
+      
+      .menu-button:focus {
+        outline: 2px solid #297b30;
+        outline-offset: 2px;
+      }
+      
+
+.inputClass{
+    text-align: center;
+    padding: 5px;
+}
+
+button{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+    text-align: center;
+    padding: 5px;
+    border-style: groove;
+    border-radius: 15px;
+    background-color: rgb(228, 21, 90);
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+}
+
+button:hover{
+    background-color: rgb(250, 145, 145);
+    color: rgb(155, 42, 82);
+}
+
+.input-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+  
+  .input-table td {
+    padding: 8px;
+    vertical-align: middle;
+  }
+  
+input {
+    width: 300px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 10px;
+  }
+  
+
+.results-table {
+    width: 100%;
+    max-width: 300px;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .results-table th {
+    background-color: rgb(228, 21, 90);
+    font-weight: bold;
+    color: #fff;
+  }
+  
+.result{
+    align-content: center;
+    text-align: center;
+}
+

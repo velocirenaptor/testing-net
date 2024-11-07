@@ -1,22 +1,36 @@
-<body>
-    <div>
-        <h2>Linear Regression Calculator</h2>
-        
-        <label for="xValues">Enter X values (comma-separated):</label>
-        <input id="xValues" [(ngModel)]="xInput" placeholder="e.g., 1,2,3,4" />
-      
-        <label for="yValues">Enter Y values (comma-separated):</label>
-        <input id="yValues" [(ngModel)]="yInput" placeholder="e.g., 2,4,6,8" />
-      
-        <!-- Button to calculate regression -->
-        <button (click)="calculateRegression()">Calculate</button>
-      
-        <div *ngIf="B0 !== null && B1 !== null">
-            <p>B0 (Intercept): {{ B0 }}</p>
-            <p>B1 (Slope): {{ B1 }}</p>
-            <p *ngIf="true">Check B0: {{ B0 }}</p> <!-- Debugging line -->
-          </div>    
-</body>
-
-
+<section class="flex flex-col">
+  <h2>Linear Regression</h2>
   
+  <div class="inputClass">
+    <ul>
+      <label for="xValues">X values:</label>
+      <input
+        class="text-black"
+        type="text"
+        name="xValues"
+        id="xValues"
+        placeholder="e.g., 1, 2, 3, 4"
+        [(ngModel)]="xValues"
+      />
+    </ul>
+    <ul>
+      <label for="yValues">Y values:</label>
+      <input
+        class="text-black"
+        type="text"
+        name="yValues"
+        id="yValues"
+        placeholder="e.g., 2, 3, 5, 7"
+        [(ngModel)]="yValues"
+      />
+    </ul>
+    
+    <button (click)="linearRegression()">Calculate</button>
+  </div>
+
+  <div *ngIf="result !== null" class="result">
+    <h2>Results:</h2>
+    <span>Slope: {{ result.slope }}</span><br />
+    <span>Intercept: {{ result.intercept }}</span>
+  </div>
+</section>

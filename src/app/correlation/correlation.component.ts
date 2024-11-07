@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 import { sumX, sumY, sumXX, sumYY, sumXY } from "../common/calculate";
 
 @Component({
   selector: "app-correlation",
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: "./correlation.component.html",
   styleUrls: ["./correlation.component.css"],
 })

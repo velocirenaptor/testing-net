@@ -15,7 +15,7 @@
           "options": {
             "outputPath": "dist/unit-tests",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],

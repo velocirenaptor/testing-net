@@ -1,30 +1,41 @@
-<div>
-    <h2>Correlation Calculator</h2>
-    <form (ngSubmit)="onSubmit($event)" #correlationForm="ngForm">
-      <label for="xValues">Enter X values (comma separated):</label>
+<h2>Correlation</h2>
+<section class="inputClass">
+  <form (ngSubmit)="onSubmit($event)">
+    <div class="mb-4">
+      <label for="xInput" class="block mb-2 text-gray-700">X values:</label>
       <input
-        id="xValues"
-        name="xValues"
+        id="xInput"
+        type="text"
         [(ngModel)]="xInput"
-        required
+        name="xInput"
+        class="border border-gray-300 p-2 rounded"
+        placeholder="e.g. 1, 2, 3, 4"
       />
-  
-      <label for="yValues">Enter Y values (comma separated):</label>
-      <input
-        id="yValues"
-        name="yValues"
-        [(ngModel)]="yInput"
-        required
-      />
-  
-      <button type="submit" [disabled]="!correlationForm.form.valid">
-        Calculate Correlation
-      </button>
-    </form>
-  
-    <div *ngIf="result">
-      <p>Correlation Coefficient (r): {{ result.r }}</p>
-      <p>Coefficient of Determination (r²): {{ result.rr }}</p>
     </div>
+
+    <div class="mb-4">
+      <label for="yInput" class="block mb-2 text-gray-700">Y values:</label>
+      <input
+        id="yInput"
+        type="text"
+        [(ngModel)]="yInput"
+        name="yInput"
+        class="border border-gray-300 p-2 rounded"
+        placeholder="e.g. 2, 3, 4, 5"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+    >
+      Calculate
+    </button>
+  </form>
+
+  <div *ngIf="result" class="mt-4">
+    <h2 class="text-lg font-bold">Results:</h2>
+    <p>Correlation Coefficient (r): {{ result.r }}</p>
+    <p>Coefficient of Determination (r²): {{ result.rr }}</p>
   </div>
-  
+</section>

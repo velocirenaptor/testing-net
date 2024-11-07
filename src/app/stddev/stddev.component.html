@@ -1,29 +1,46 @@
-<body>
-    <section class="flex flex-col justify-center items-center p-15">
-        <table>
-            <thead>
-                <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let valor of column1; let i = index">
-                    <td>{{ valor }}</td>
-                    <td>{{ column2[i] || "N/A" }}</td>
-                </tr>
-                <tr>
-                    <td>Column1 media: {{ mediaColumn1 }}</td>
-                    <td>Column2 media: {{ mediaColumn2 }}</td>
-                </tr>
-                <tr>
-                    <td>Column1 stddev: {{ stddevColumn1 }}</td>
-                    <td>Column2 stddev: {{ stddevColumn2 }}</td>
-                </tr>
-            </tbody>
-        </table>
+<section class="inputClass">
+    <h2>Standard Deviation Calculator</h2>
+    
+    <div>
+      <label for="column1-input">Column 1:</label>
+      <input
+        id="column1-input"
+        type="text"
+        placeholder="e.g., 1,2,3,4,5"
+        [(ngModel)]="column1Input"
+        (input)="updateColumns()"
+      />
+    </div>
+    
+    <div>
+      <label for="column2-input">Column 2:</label>
+      <input
+        id="column2-input"
+        type="text"
+        placeholder="e.g., 2,4,6,8,10"
+        [(ngModel)]="column2Input"
+        (input)="updateColumns()"
+      />
+    </div>
+  
+    <button (click)="calcularMedias(); calcularStddev()">Calculate</button>
+  
+    <h2 class="text-lg font-bold">Results:</h2>
+    <section class="results">
+    <table class="results-table">
+      <tr>
+        <th>C1</th>
+        <th>C2</th>
+      </tr>
+      <tr>
+        <td>{{ mediaColumn1 }}</td>
+        <td>{{ mediaColumn2 }}</td>
+      </tr>
+      <tr>
+        <td>{{ stddevColumn1 }}</td>
+        <td>{{ stddevColumn2 }}</td>
+      </tr>
+    </table>
     </section>
-
-</body>
-
-
+  </section>
+  
